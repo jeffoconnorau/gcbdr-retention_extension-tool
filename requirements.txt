@@ -1,0 +1,5 @@
+google-cloud-backupdr
+google-api-python-client
+google-auth
+python-dateutil
+tabulate
