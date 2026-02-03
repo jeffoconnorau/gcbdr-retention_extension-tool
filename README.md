@@ -38,7 +38,7 @@ A CLI tool to extend the expiration date of Google Cloud Backup and DR (GCBDR) b
 | `--filter-age-days` | Include only backups created *more* than X days ago. |
 | `--filter-name` | Include only backups where name contains substring. |
 | `--filter-labels` | Space-separated `key=value` pairs. Matches ALL provided labels. |
-| `--add-days` | Number of days to ADD to current expiration. |
+| `--add-expiration-days` | Number of days to ADD to current expiration. |
 | `--set-new-expiration-date` | New expiration date (YYYY-MM-DD). Sets time to 23:59:00. |
 | `--execute` | Perform the actual update. |
 | `--verbose` | Print `curl` commands. |
