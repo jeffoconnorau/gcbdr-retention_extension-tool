@@ -23,7 +23,7 @@ def parse_arguments():
     
     # Action Arguments
     action_group = parser.add_mutually_exclusive_group(required=True)
-    action_group.add_argument("--add-days", type=int, help="Add X days to the current expiration.")
+    action_group.add_argument("--add-expiration-days", type=int, help="Add X days to the current expiration.")
     action_group.add_argument("--set-new-expiration-date", help="Set specific expiration date (YYYY-MM-DD).")
     
     # Execution Arguments
@@ -86,7 +86,7 @@ def main():
             
         new_expire_time = manager.calculate_new_expiration(
             current_expire_time,
-            add_days=args.add_days,
+            add_days=args.add_expiration_days,
             set_date=args.set_new_expiration_date
         )
         

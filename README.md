@@ -9,7 +9,7 @@ A CLI tool to extend the expiration date of Google Cloud Backup and DR (GCBDR) b
     -   Select backups older than X days (`--filter-age-days`).
     -   Filter by name substring (`--filter-name`).
     -   Filter by labels (`--filter-labels key=value`).
--   **Extension**: Add days to existing expiration (`--add-days`) or set a specific date (`--set-new-expiration-date`).
+-   **Extension**: Add days to existing expiration (`--add-expiration-days`) or set a specific date (`--set-new-expiration-date`).
 -   **Safety First**:
     -   **Dry-Run by Default**: No changes applied unless `--execute` is specified.
     -   **Verbose Mode**: Prints the equivalent `curl` commands for audit or manual execution.
@@ -52,7 +52,7 @@ python main.py \
   --project argo-svc-dev-3 \
   --location asia-southeast1 \
   --filter-age-days 1 \
-  --add-days 30 \
+  --add-expiration-days 30 \
   --verbose
 ```
 
@@ -63,7 +63,7 @@ python main.py \
   --project argo-svc-dev-3 \
   --location asia-southeast1 \
   --workload-type COMPUTE_ENGINE_INSTANCE \
-  --add-days 14 \
+  --add-expiration-days 14 \
   --execute
 ```
 
@@ -74,7 +74,7 @@ python main.py \
   --project argo-svc-dev-3 \
   --location asia-southeast1 \
   --workload-type CLOUD_SQL_INSTANCE \
-  --add-days 14 \
+  --add-expiration-days 14 \
   --execute
 ```
 
@@ -85,7 +85,7 @@ python main.py \
   --project argo-svc-dev-3 \
   --location asia-southeast1 \
   --filter-labels env=prod dr=critical \
-  --add-days 30 \
+  --add-expiration-days 30 \
   --execute
 ```
 
@@ -106,6 +106,6 @@ Generate the `curl` commands to run manually later, without executing them now.
 python main.py \
   --project argo-svc-dev-3 \
   --location asia-southeast1 \
-  --add-days 7 \
+  --add-expiration-days 7 \
   --verbose
 ```
