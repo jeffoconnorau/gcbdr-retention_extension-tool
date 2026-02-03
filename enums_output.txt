@@ -1,0 +1,54 @@
+Searching for Enums in backupdr_v1...
+
+Scanning CloudSqlInstanceDataSourceProperties:
+
+Scanning CloudSqlInstanceDataSourceReferenceProperties:
+
+Scanning ComputeInstanceDataSourceProperties:
+
+Scanning DataSource:
+
+Scanning DataSourceBackupApplianceApplication:
+
+Scanning DataSourceBackupConfigInfo:
+
+Scanning DataSourceGcpResource:
+
+Scanning DataSourceGcpResourceInfo:
+
+Scanning DataSourceReference:
+
+Scanning DiskDataSourceProperties:
+
+Scanning FetchBackupPlanAssociationsForResourceTypeRequest:
+
+Scanning FetchBackupPlanAssociationsForResourceTypeResponse:
+
+Scanning FetchBackupsForResourceTypeRequest:
+
+Scanning FetchBackupsForResourceTypeResponse:
+
+Scanning FetchDataSourceReferencesForResourceTypeRequest:
+
+Scanning FetchDataSourceReferencesForResourceTypeResponse:
+
+Scanning GetDataSourceReferenceRequest:
+
+Scanning GetDataSourceRequest:
+
+Scanning KeyRevocationActionType:
+  KEY_REVOCATION_ACTION_TYPE_UNSPECIFIED
+  NONE
+  STOP
+
+Scanning ListDataSourceReferencesRequest:
+
+Scanning ListDataSourceReferencesResponse:
+
+Scanning ListDataSourcesRequest:
+
+Scanning ListDataSourcesResponse:
+
+Scanning UpdateDataSourceRequest:
+
+Checking specifically for 'WorkloadType' or similar:

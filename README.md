@@ -4,7 +4,13 @@ A CLI tool to extend the expiration date of Google Cloud Backup and DR (GCBDR) b
 
 ## Features
 
--   **Discovery**: Find backups by Project, Location, Vault, or Workload Type (`COMPUTE_ENGINE_INSTANCE`, `CLOUD_SQL_INSTANCE`, etc.).
+-   **Discovery**: Find backups by Project, Location, Vault, or Workload Type:
+    -   `COMPUTE_ENGINE_INSTANCE` (VMs)
+    -   `COMPUTE_ENGINE_DISK` (Persistent Disks)
+    -   `CLOUD_SQL_INSTANCE` (Cloud SQL)
+    -   `ALLOY_DB_CLUSTER` (AlloyDB)
+    -   `FILESTORE_INSTANCE` (Filestore)
+    -   `VMWARE_ENGINE_VM` (GCVE)
 -   **Filtering**: 
     -   Select backups older than X days (`--filter-age-days`).
     -   Filter by name substring (`--filter-name`).
@@ -70,6 +76,7 @@ python main.py \
   --execute
 ```
 
+
 ### 3. Apply to CloudSQL Only
 Extend retention for **Cloud SQL** backups only.
 ```bash
@@ -81,7 +88,29 @@ python main.py \
   --execute
 ```
 
-### 4. Filter by Labels (e.g., "env=prod")
+### 4. Apply to Persistent Disks Only
+Extend retention for **Compute Engine Disk** backups only.
+```bash
+python main.py \
+  --project argo-svc-dev-3 \
+  --location asia-southeast1 \
+  --workload-type COMPUTE_ENGINE_DISK \
+  --add-expiration-days 14 \
+  --execute
+```
+
+### 5. Apply to Filestore Only
+Extend retention for **Filestore** backups only.
+```bash
+python main.py \
+  --project argo-svc-dev-3 \
+  --location asia-southeast1 \
+  --workload-type FILESTORE_INSTANCE \
+  --add-expiration-days 14 \
+  --execute
+```
+
+### 6. Filter by Labels (e.g., "env=prod")
 Apply only to backups that have specific labels.
 ```bash
 python main.py \
@@ -92,7 +121,7 @@ python main.py \
   --execute
 ```
 
-### 5. Legal Hold (Specific Date)
+### 7. Legal Hold (Specific Date)
 Set all backups for a specific vault `my-vault` to expire on **December 31, 2030**.
 ```bash
 python main.py \
@@ -103,7 +132,7 @@ python main.py \
   --execute
 ```
 
-### 6. Verbose Output (Generate Commands)
+### 8. Verbose Output (Generate Commands)
 Generate the `curl` commands to run manually later, without executing them now.
 ```bash
 python main.py \
@@ -111,4 +140,14 @@ python main.py \
   --location asia-southeast1 \
   --add-expiration-days 7 \
   --verbose
+```
+
+### 9. Gcloud Output (Generate gcloud curl Commands)
+Generate `gcloud curl` commands instead of raw `curl`.
+```bash
+python main.py \
+  --project argo-svc-dev-3 \
+  --location asia-southeast1 \
+  --add-expiration-days 7 \
+  --gcloud
 ```

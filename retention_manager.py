@@ -30,15 +30,17 @@ class RetentionManager:
         # 1. List Vaults
         parent = f"projects/{self.project_id}/locations/{self.location}"
         
-        # Handle wildcard location by iterating all locations if needed, 
-        # but for now assume user provides specific region or we list vaults in that region.
-        # If location is '-', we perform aggregation (if API supports it, otherwise iterating likely needed).
-        
+        # Workload Type Map (Friendly Name -> API Substring)
+        WORKLOAD_TYPE_MAP = {
+            "COMPUTE_ENGINE_INSTANCE": "compute.googleapis.com/Instance",
+            "COMPUTE_ENGINE_DISK": "compute.googleapis.com/Disk",
+            "CLOUD_SQL_INSTANCE": "sqladmin.googleapis.com/Instance",
+            "ALLOY_DB_CLUSTER": "alloydb.googleapis.com/Cluster",
+            "FILESTORE_INSTANCE": "file.googleapis.com/Instance",
+            "VMWARE_ENGINE_VM": "vmwareengine.googleapis.com/VirtualMachine"
+        }
+
         try:
-            # We need to list vaults first to get to backups usually, 
-            # OR we can try to list data sources directly if the API allows '-' for vaults.
-            # Let's try listing BackupVaults first to be safe and structured.
-            
             request = backupdr_v1.ListBackupVaultsRequest(parent=parent)
             vaults = self.client.list_backup_vaults(request=request)
             
@@ -46,18 +48,28 @@ class RetentionManager:
                 if vault_filter and vault_filter not in vault.name:
                     continue
                 
-                # self.logger.info(f"Scanning Vault: {vault.name}")
-                
                 # 2. List DataSources in Vault
                 ds_request = backupdr_v1.ListDataSourcesRequest(parent=vault.name)
                 data_sources = self.client.list_data_sources(request=ds_request)
                 
                 for ds in data_sources:
-                    # self.logger.debug(f"Scanning DataSource: {ds.name}")
-                    
+                    # Filter by Workload Type
+                    if workload_type_filter:
+                        # Normalize to map value if possible, else use raw input
+                        target_type = WORKLOAD_TYPE_MAP.get(workload_type_filter, workload_type_filter)
+                        
+                        # Check GCP Resource Type
+                        if hasattr(ds, 'data_source_gcp_resource') and hasattr(ds.data_source_gcp_resource, 'type'):
+                            if target_type not in ds.data_source_gcp_resource.type:
+                                continue
+                        else:
+                             # If type info is missing but filter is requested, verify if we should skip
+                             # Some datasources might not be GCP resources (e.g. on-prem).
+                             # For now, skip if we can't verify type
+                             continue
+
                     # 3. List Backups in DataSource
-                    # Filter by workload type if possible at data source level? 
-                    # Actually data sources have type info.
+
                     # Creating a backup list request
                     
                     backup_request = backupdr_v1.ListBackupsRequest(parent=ds.name)
