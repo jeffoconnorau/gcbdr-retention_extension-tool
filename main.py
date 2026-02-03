@@ -29,7 +29,8 @@ def parse_arguments():
     # Execution Arguments
     parser.add_argument("--dry-run", action="store_true", default=True, help="Preview changes without executing (Default).")
     parser.add_argument("--execute", action="store_true", help="Execute changes. MUST be specified to run updates.")
-    parser.add_argument("--verbose", action="store_true", help="Print detailed curl/gcloud equivalent commands.")
+    parser.add_argument("--verbose", action="store_true", help="Print detailed curl equivalent commands.")
+    parser.add_argument("--gcloud", action="store_true", help="Print detailed gcloud equivalent commands.")
     
     return parser.parse_args()
 
@@ -47,7 +48,7 @@ def main():
     if not args.execute:
         logger.info("DRY-RUN MODE: No changes will be applied.")
     
-    manager = RetentionManager(project_id=args.project, location=args.location, verbose=args.verbose, dry_run=not args.execute)
+    manager = RetentionManager(project_id=args.project, location=args.location, verbose=args.verbose, gcloud_verbose=args.gcloud, dry_run=not args.execute)
     
     # 1. Discovery
     logger.info(f"Discovering backups in project {args.project} location {args.location}...")

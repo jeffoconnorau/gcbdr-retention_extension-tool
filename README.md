@@ -42,6 +42,7 @@ A CLI tool to extend the expiration date of Google Cloud Backup and DR (GCBDR) b
 | `--set-new-expiration-date` | New expiration date (YYYY-MM-DD). Sets time to 23:59:00. |
 | `--execute` | Perform the actual update. |
 | `--verbose` | Print `curl` commands. |
+| `--gcloud` | Print `gcloud curl` commands. |
 
 ## Usage Examples
 

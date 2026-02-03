@@ -7,10 +7,11 @@ from tabulate import tabulate
 import json
 
 class RetentionManager:
-    def __init__(self, project_id, location, verbose=False, dry_run=True):
+    def __init__(self, project_id, location, verbose=False, gcloud_verbose=False, dry_run=True):
         self.project_id = project_id
         self.location = location
         self.verbose = verbose
+        self.gcloud_verbose = gcloud_verbose
         self.dry_run = dry_run
         self.logger = logging.getLogger(__name__)
         
@@ -147,8 +148,12 @@ class RetentionManager:
             ])
             
             if self.verbose:
-                print(f"\n[VERBOSE] Command for {backup_name}:")
+                print(f"\n[VERBOSE] curl Command for {backup_name}:")
                 print(self._generate_curl_command(backup_name, new))
+
+            if self.gcloud_verbose:
+                print(f"\n[GCLOUD] gcloud Command for {backup_name}:")
+                print(self._generate_gcloud_command(backup_name, new))
                 
             if not self.dry_run:
                 self._update_backup_expiration(backup_name, new)
@@ -195,4 +200,12 @@ curl -X PATCH \\
             
         except Exception as e:
             self.logger.error(f"Failed to update {backup_name}: {e}")
+
+    def _generate_gcloud_command(self, backup_name, new_expire_time):
+        return f"""
+gcloud curl -X PATCH \\
+-H "Content-Type: application/json" \\
+-d '{{ "expireTime": "{new_expire_time}" }}' \\
+"https://backupdr.googleapis.com/v1/{backup_name}?updateMask=expireTime"
+"""
 
