@@ -10,7 +10,6 @@ A CLI tool to extend the expiration date of Google Cloud Backup and DR (GCBDR) b
     -   `CLOUD_SQL_INSTANCE` (Cloud SQL)
     -   `ALLOY_DB_CLUSTER` (AlloyDB)
     -   `FILESTORE_INSTANCE` (Filestore)
-    -   `VMWARE_ENGINE_VM` (GCVE)
 -   **Filtering**: 
     -   Select backups older than X days (`--filter-age-days`).
     -   Filter by name substring (`--filter-name`).

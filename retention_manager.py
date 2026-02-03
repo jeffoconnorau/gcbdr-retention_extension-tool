@@ -36,8 +36,7 @@ class RetentionManager:
             "COMPUTE_ENGINE_DISK": "compute.googleapis.com/Disk",
             "CLOUD_SQL_INSTANCE": "sqladmin.googleapis.com/Instance",
             "ALLOY_DB_CLUSTER": "alloydb.googleapis.com/Cluster",
-            "FILESTORE_INSTANCE": "file.googleapis.com/Instance",
-            "VMWARE_ENGINE_VM": "vmwareengine.googleapis.com/VirtualMachine"
+            "FILESTORE_INSTANCE": "file.googleapis.com/Instance"
         }
 
         try:
