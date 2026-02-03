@@ -25,6 +25,8 @@ A CLI tool to extend the expiration date of Google Cloud Backup and DR (GCBDR) b
     Ensure you are authenticated with a user/service account that has `backupdr.backups.update` (or `backupdr.managementServers.manageExpiration`) permission.
     ```bash
     gcloud auth application-default login
+    # For running generated 'gcloud curl' commands manually:
+    gcloud auth login
     ```
 
 ## CLI Arguments
